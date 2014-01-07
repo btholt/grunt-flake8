@@ -1,0 +1,48 @@
+btholt{
+  "name": "grunt-flake8",
+  "description": "Lint your Python projects with flake8",
+  "version": "0.1.0",
+  "homepage": "https://github.com/btholt/grunt-flake8",
+  "author": {
+    "name": "Brian Holt",
+    "email": "btholt@gmail.com",
+    "url": "brianholt.me"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/btholt/grunt-flake8.git"
+  },
+  "bugs": {
+    "url": "https://github.com/btholt/grunt-flake8/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/btholt/grunt-flake8/blob/master/LICENSE-MIT"
+    }
+  ],
+  "main": "Gruntfile.js",
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "devDependencies": {
+    "grunt-contrib-jshint": "~0.6.0",
+    "grunt-contrib-clean": "~0.4.0",
+    "grunt-contrib-nodeunit": "~0.2.0",
+    "grunt": "~0.4.2"
+  },
+  "peerDependencies": {
+    "grunt": "~0.4.2"
+  },
+  "keywords": [
+    "gruntplugin",
+    "python",
+    "pep8",
+    "lint",
+    "pyflakes",
+    "flake8"
+  ]
+}
