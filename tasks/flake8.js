@@ -10,6 +10,8 @@
 
 module.exports = function(grunt) {
 
+  var async = require('async');
+
   function buildAdditionalArgs(options) {
     var additonalArgs = [];
 
@@ -74,14 +76,13 @@ module.exports = function(grunt) {
   // creation: http://gruntjs.com/creating-tasks
 
   grunt.registerMultiTask('flake8', 'Lint your Python projects with flake8', function() {
+
+    // flake8 only supports running against a single module or package at a time,
+    // so we have to trigger it several times if we have several targets
     var done = this.async();
     var noFailures = true;
     grunt.log.writeln("Starting flake8");
     grunt.log.writeln();
-
-    // flake8 only supports running against a single module or package at a time,
-    // so we have to trigger it several times if we have several targets
-    var runsRemaining = this.filesSrc.length;
 
     // Merge task-specific and/or target-specific options with these defaults.
     var options = this.options({
@@ -99,7 +100,8 @@ module.exports = function(grunt) {
       'verbose': false,
       'statistics': false,
       'benchmark': false,
-      'hangClosing': false
+      'hangClosing': false,
+      'spawnLimit': 10
     });
 
     // Build args
@@ -110,32 +112,34 @@ module.exports = function(grunt) {
       additonalArgs.push(options.maxComplexity);
     }
 
-    // Iterate over all specified files.
-    this.filesSrc.forEach(function(filepath) {
-
+    var lintFile = function(filepath,callback) {
       grunt.util.spawn({
         cmd: "flake8",
         args: [filepath].concat(additonalArgs)
       }, function(error, result, code) {
         if(result.stdout.length > 0) {
           noFailures = false;
-          grunt.log.errorlns(filepath, '... fail');
-          grunt.log.errorlns(result.stdout);
+          grunt.log.error(filepath, '... fail');
+          grunt.log.error(result.stdout);
           if (options.force){
             grunt.log.warn("Linting errors found, but `force` was used, continuing...");
           }
         }
         else {
           if (!options.errorsOnly) {
-            grunt.log.oklns(filepath, '... pass');
+            grunt.log.ok(filepath, '... pass');
           }
         }
-        runsRemaining -= 1;
-        if (runsRemaining === 0) {
-          done(noFailures || options.force);
-        }
       });
+    }
 
+    // Iterate over all specified files.
+    async.eachLimit(this.filesSrc, options.spawnLimit, lintFile, function(err) {
+      if(err) {
+        return grunt.fail.warn(err);
+      }
+      grunt.log.ok(this.filesSrc + " files linted.");
+      done(noFailures || options.force);
     });
 
   });
