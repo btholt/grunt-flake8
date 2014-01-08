@@ -1,6 +1,6 @@
 /*
  * grunt-flake8
- * https://github.com/btholt/grunt-flake8
+ * https://github.com/redditgifts/grunt-flake8
  *
  * Copyright (c) 2014 Brian Holt
  * Licensed under the MIT license.
@@ -118,7 +118,7 @@ module.exports = function(grunt) {
         if(result.stdout.length > 0) {
           noFailures = false;
           grunt.log.error(filepath, '... fail');
-          // grunt.log.error(result.stdout);
+          grunt.log.error(result.stdout);
           if (options.force){
             grunt.log.warn("Linting errors found, but `force` was used, continuing...");
           }
