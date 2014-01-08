@@ -1,6 +1,6 @@
 /*
  * grunt-flake8
- * https://github.com/redditgifts/grunt-flake8
+ * https://github.com/btholt/grunt-flake8
  *
  * Copyright (c) 2014 Brian Holt
  * Licensed under the MIT license.
@@ -81,8 +81,6 @@ module.exports = function(grunt) {
     // so we have to trigger it several times if we have several targets
     var done = this.async();
     var noFailures = true;
-    grunt.log.writeln("Starting flake8");
-    grunt.log.writeln();
 
     // Merge task-specific and/or target-specific options with these defaults.
     var options = this.options({
@@ -120,7 +118,7 @@ module.exports = function(grunt) {
         if(result.stdout.length > 0) {
           noFailures = false;
           grunt.log.error(filepath, '... fail');
-          grunt.log.error(result.stdout);
+          // grunt.log.error(result.stdout);
           if (options.force){
             grunt.log.warn("Linting errors found, but `force` was used, continuing...");
           }
@@ -130,15 +128,12 @@ module.exports = function(grunt) {
             grunt.log.ok(filepath, '... pass');
           }
         }
+        callback(null);
       });
     }
 
     // Iterate over all specified files.
     async.eachLimit(this.filesSrc, options.spawnLimit, lintFile, function(err) {
-      if(err) {
-        return grunt.fail.warn(err);
-      }
-      grunt.log.ok(this.filesSrc + " files linted.");
       done(noFailures || options.force);
     });
 

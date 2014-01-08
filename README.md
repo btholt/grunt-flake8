@@ -187,5 +187,6 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 - So much love for [Grunt.js](http://gruntjs.com/) and the devs who work on it.
 
 ## Release History
+v0.1.2 - Fixed a critical bug with me not understanding async.
 v0.1.1 - Used async to be able to handle larger projects.
 v0.1.0 - Initial release.
