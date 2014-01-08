@@ -1,7 +1,7 @@
 {
   "name": "grunt-flake8",
   "description": "Lint your Python projects with flake8",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "homepage": "https://github.com/btholt/grunt-flake8",
   "author": {
     "name": "Brian Holt",

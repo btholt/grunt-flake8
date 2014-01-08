@@ -49,6 +49,12 @@ Default value: `false`
 
 If true, the files passing flake8 will not be shown.
 
+#### options.spawnLimit
+Type: `Integer`
+Default value: `10`
+
+The maximum amount of parallel files that `async` will allow to be accessed at once.
+
 #### options.force
 Type: `Boolean`
 Default value: `false`
@@ -177,7 +183,9 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 - Inspired by [thusoy's](https://github.com/thusoy) [grunt-pylint](https://github.com/thusoy/grunt-pylint) tool.
 - [jcrocholl's](https://github.com/jcrocholl) great [pep8](https://github.com/jcrocholl/pep8) too.
 - [florent's](https://launchpad.net/~florent.x) amazing [PyFlakes](https://launchpad.net/pyflakes) tool.
+- [caolan](https://github.com/caolan) for his grand [async](https://github.com/caolan/async) tool. So rad.
 - So much love for [Grunt.js](http://gruntjs.com/) and the devs who work on it.
 
 ## Release History
-v0.0.0 - Initial release.
+v0.1.1 - Used async to be able to handle larger projects.
+v0.1.0 - Initial release.
